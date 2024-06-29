@@ -1,0 +1,28 @@
+<Narrator>
+LORD SCOURGE RAISED the hood of his cloak as he stepped off the shuttle, a shield against the wind and pelting rain. Storms were common here on Dromund Kaas; dark clouds perpetually blocked out the sun, rendering terms like day and night meaningless. The only natural illumination came from the frequent bursts of <sfx="Lightning Crackle">lightning arcing across the sky, but the glow from the spaceport and nearby Kaas City provided more than enough light to see where he was going.
+</Narrator>
+<Sechel>Lord Scourge, I am Sechel. Welcome to Dromund Kaas.</Sechel>
+<Narrator>
+The powerful electrical storms were a physical manifestation of the dark side power that engulfed the entire planet—a power that had brought the Sith back here a millennium before, when their very survival had been in doubt.
+After a crushing defeat in the Great Hyperspace War, the Emperor had risen up from the tattered ranks of the remaining Sith Lords to lead his followers on a desperate exodus to the farthest reaches of the galaxy. Fleeing the Republic armies and the relentless revenge of the Jedi, they eventually resettled far beyond the borders of Republic-charted space on their long-lost ancestral homeworld.
+There, safely hidden from their enemies, the Sith began to rebuild their Empire. Under the guidance of the Emperor—the immortal and all-powerful savior who still reigned over them even after a thousand years—they abandoned the hedonistic lifestyles of their barbaric ancestors.
+Instead they created a near-perfect society in which the Imperial military operated and controlled virtually every aspect of daily life. Farmers, mechanics, teachers, cooks, janitors—all were part of the great martial machine, each individual a cog trained to perform his or her duties with maximum discipline and efficiency. As a result, the Sith had been able to conquer and enslave world after world in the unexplored regions of the galaxy, until their power and influence rivaled those of their glorious past.
+</Narrator>
+<Sechel>Lord Scourge, I am Sechel. Welcome to Dromund Kaas.</Sechel>
+<Scourge>Welcome back.</Scourge>
+<Narrator>
+Scourge corrected as the man dropped to one knee and bowed his head in a gesture of respect.
+This is not my first time on this world.
+</Narrator>
+<Narrator>
+Sechel’s hood was pulled up against the rain, covering his features, but during his approach Scourge had noticed the red skin and dangling cheek tendrils that marked him as a pureblood Sith, just like Lord Scourge himself. But while Scourge was an imposing figure, tall and broad-shouldered, this man was small and slight. Reaching out, Scourge sensed only the faintest hint of the Force in the other, and his features twisted into a sneer of revulsion.
+Unlike the humans that made up the bulk of the Empire’s population, the Sith species were all blessed with the power of the Force to varying degrees. It marked them as the elite; it elevated them above the lower ranks of Imperial society. And it was a legacy that was fervently protected.
+A pureblood born without any connection to the Force was an abomination; by custom such a creature could not be suffered to live. During his time at the Academy, Lord Scourge had encountered a handful of Sith whose power in the Force was noticeably weak. Hampered by their failing, they relied on the influence of their high-ranking families to find them postings as low-level aids or administrative officials at the Academy, where their handicap would be least noticed. Spared from the lower castes only by their pureblood heritage, in Scourge’s eyes they were barely better than slaves, though he did have to admit that the more competent ones could have their uses.
+But never before had he encountered one of his own kind with as feeble an attunement to the Force as the man huddled at his feet. The fact that Darth Nyriss had sent someone so vile and unworthy to greet him was unsettling. He’d expected a more substantial and impressive welcome.
+<sfx="Scourge Laught">
+</Narrator>
+<Scourge>Get up.</Scourge>
+<Narrator>Scourge snarled, making no effort to conceal his disgust.</Narrator>
+<sfx="Huff">
+<Narrator>Sechel quickly scrambled to his feet.</Narrator>
+<Sechel>Darth Nyriss sends her apologies for not coming to meet you personally. There have been several attempts on her life recently, and she only leaves her palace under the rarest of circumstances.</Sechel>

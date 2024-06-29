@@ -1,0 +1,33 @@
+{
+  "SFX": {
+    "LightsaberEffect": {
+      "length": "1 s",
+      "tags": [ "swing" ]
+    },
+    "BlasterEffect": {
+      "length": "2 s",
+      "tags": [ "loud", "bad guy sfx" ]
+    },
+    "Huff": {
+      "length": "1 s",
+      "tags": [ "quiet", "a little exhasperated" ]
+    },
+    "Lightning Crackle": {
+      "length": "1 s",
+      "tags": [ "loud", "Dromuud Kass noise" ]
+    },
+    "Darth Nyriss laugh": {
+	"length": "1 s"
+    }
+  },
+  "Song": {
+    "Duel of the fates": {
+      "length": "145 s",
+      "tags": [ "battle music" ]
+    },
+    "On the Road": {
+      "length": "50 s",
+      "tags": [ "hopeful" ]
+    }
+  }
+}

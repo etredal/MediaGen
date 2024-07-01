@@ -2,6 +2,7 @@ import whisper
 from pydub import AudioSegment
 from lxml import etree
 import re
+import correlator
 
 DEBUG = True
 
@@ -68,19 +69,33 @@ def run(file_name = "1James"):
             print(f"{item['word']} (Start: {item['start']}s, End: {item['end']}s)")
 
     # Write transcription to file
+    transcription_list = []
     with open(file_name + "TranscriptionOutput.txt", "w") as file:
         # Iterate through each item in the list
         for item in words_with_timestamps:
             # Write the item to the file
             file.write(f"{item['word']} (Start: {item['start']}s, End: {item['end']}s)\n")
+            transcription_list.append({'word': item['word'], 'start': item['start'], 'end': item['end']})
+    raw_xml = ""
+    with open('./LabeledText.xml', 'rb') as file:
+        raw_xml = file.read()
 
-    tree = etree.parse('./LabeledText.xml')
-    notags = etree.tostring(tree, encoding='utf8', method='text').decode('utf8')
-    stripped_xml = notags.replace("\n", "").replace("\t", "").split(" ")
-    filtered_list = [item for item in stripped_xml if item]
+    # Read the raw XML content from a file in binary mode
+    with open('./LabeledText.xml', 'rb') as file:
+        raw_xml = file.read()
 
-    print(filtered_list)
-    print(words_with_timestamps)
+    # Parse the raw XML content
+    root = etree.fromstring(raw_xml)
+    tree = etree.ElementTree(root)
+
+    # Convert the ElementTree to a string with XML declaration
+    xml_bytes = etree.tostring(tree, pretty_print=True, xml_declaration=True, encoding='UTF-8')
+
+    # Decode the bytes to a string
+    xml_str = xml_bytes.decode('utf-8')
+
+    # Needs input of the basic xml string and a list of dict of word, start, end times from transcription
+    print(correlator.correlate_sfx_times(xml_str, transcription_list))
 
 # Main function
 if __name__ == "__main__":

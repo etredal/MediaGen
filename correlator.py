@@ -5,7 +5,7 @@ from Levenshtein import distance as levenshtein_distance
 # > S2 input xml with sfx and words, output list  of the tuple of sfx and words to left and right
 # > S3 lievschtein matching, sliding window where i compare each word, then i get the timestamp of the middle word
 
-DEBUG = False
+DEBUG = True
 
 def get_sfx_words(xml_string):
     # Regular expression to match tags including <sfx>
@@ -30,6 +30,9 @@ def get_sfx_words(xml_string):
     sfx_positions = [i for i, word in enumerate(words) if word.startswith('<sfx')]
     closest_words = []
 
+    if DEBUG:
+        print(sfx_positions)
+
     for pos in sfx_positions:
         left_words = words[max(0, pos-5):pos]
         right_words = words[pos+1:pos+6]
@@ -39,10 +42,17 @@ def get_sfx_words(xml_string):
 
         closest_words.append((words[pos], left_words, right_words))
 
+    if DEBUG:
+        print(closest_words)
+
     return closest_words
 
 def sliding_window_match(sfx_words, timestamped_words):
     best_matches = []
+
+    print("HERE:")
+    print(sfx_words)
+    print(timestamped_words)
 
     for tuple in sfx_words:
         combined_sfx_words = tuple[1] + tuple[2]
@@ -76,6 +86,9 @@ def sliding_window_match(sfx_words, timestamped_words):
                 "start_time": start_time,
                 "min_dist_lev": min_distance
             })
+
+    if DEBUG:
+        print(best_matches)
 
     return best_matches
 
@@ -208,7 +221,10 @@ def main():
 
 def correlate_sfx_times(xml_string, text_timestamps):
     sfx_near_words = get_sfx_words(xml_string)
-    text_timestamp_info = convert_to_dict(text_timestamps)
+
+    # text_timestamp_info = convert_to_dict(text_timestamps)
+    text_timestamp_info = text_timestamps
+
     return sliding_window_match(sfx_near_words, text_timestamp_info)
 
 if __name__ == "__main__":

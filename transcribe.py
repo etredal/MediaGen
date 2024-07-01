@@ -56,6 +56,23 @@ def normalize(text):
     """Strips all non-letter characters from a string and converts to lowercase."""
     return re.sub(r"[^a-zA-Z]+", "", text).lower()  # Lowercase added
 
+def xml_str_file(file):
+    raw_xml = ""
+    with open('./LabeledText.xml', 'rb') as file:
+        raw_xml = file.read()
+
+    # Parse the raw XML content
+    root = etree.fromstring(raw_xml)
+    tree = etree.ElementTree(root)
+
+    # Convert the ElementTree to a string with XML declaration
+    xml_bytes = etree.tostring(tree, pretty_print=True, xml_declaration=True, encoding='UTF-8')
+
+    # Decode the bytes to a string
+    xml_str = xml_bytes.decode('utf-8')
+
+    return xml_str
+
 # General runner: Takes file and generates xml, transcription, mp3, correlation sfx to mp3, final audio
 def run(file_name = "1James"):
     file_name = "1James"
@@ -76,26 +93,14 @@ def run(file_name = "1James"):
             # Write the item to the file
             file.write(f"{item['word']} (Start: {item['start']}s, End: {item['end']}s)\n")
             transcription_list.append({'word': item['word'], 'start': item['start'], 'end': item['end']})
-    raw_xml = ""
-    with open('./LabeledText.xml', 'rb') as file:
-        raw_xml = file.read()
-
-    # Read the raw XML content from a file in binary mode
-    with open('./LabeledText.xml', 'rb') as file:
-        raw_xml = file.read()
-
-    # Parse the raw XML content
-    root = etree.fromstring(raw_xml)
-    tree = etree.ElementTree(root)
-
-    # Convert the ElementTree to a string with XML declaration
-    xml_bytes = etree.tostring(tree, pretty_print=True, xml_declaration=True, encoding='UTF-8')
-
-    # Decode the bytes to a string
-    xml_str = xml_bytes.decode('utf-8')
+    
+    xml_str = xml_str_file("LabeledTExt.xml")
 
     # Needs input of the basic xml string and a list of dict of word, start, end times from transcription
-    print(correlator.correlate_sfx_times(xml_str, transcription_list))
+    sfx_time_correlations = correlator.correlate_sfx_times(xml_str, transcription_list)
+
+    if DEBUG:
+        print(sfx_time_correlations)
 
 # Main function
 if __name__ == "__main__":

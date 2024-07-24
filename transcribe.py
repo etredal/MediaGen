@@ -29,13 +29,13 @@ def process_transcription(transcription):
             })
     return words_with_timestamps
 
-def overlay(main="./1James.mp3", sfx="./blaster.mp3", mixedName="mixed"):
+def overlay(main="./1James.mp3", sfx="./blaster.mp3", mixedName="1JamesMixed", timePosition=0):
     # Load the existing MP3 file and the SFX file
     existing_mp3 = AudioSegment.from_file(main)
     sfx = AudioSegment.from_file(sfx)
 
     # Determine the position where you want to mix the SFX (e.g., at 10 seconds)
-    position = 0.5 * SECONDS  # Position in milliseconds
+    position = timePosition * SECONDS  # Position in milliseconds
 
     sfx_adjusted = sfx.apply_gain(-20)
 

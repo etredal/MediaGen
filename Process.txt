@@ -1,5 +1,0 @@
-Transcript > SFX/Song library > XML Format with OpenAI > Text to speech > MP3 of voices with text encoding > Add sounds to mp3 based on closest word
-
-Prompt:
-Add xml.  Always put sfx inside a voice tag.  You can only use voice and sfx tags.
-Here is the library of sfx.  Always use the same voice for the same character.

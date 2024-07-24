@@ -1,0 +1,16 @@
+<data>
+    <voice name="Narrator">
+        By law, Scourge could have them imprisoned or executed for even a trifling offense. <sfx name="Thunder Rumble"/> Judging by their confrontational behavior, they were blissfully unaware of this fact.
+        As the rest of the crowd parted, the mercenaries remained in place, staring defiantly at Scourge as he approached. <sfx name="Footsteps on Wet Ground"/> The Sith Lord bristled at the continued lack of respect. Sechel must have felt it as well, because he quickly rushed ahead to confront the pair.
+        Scourge didn't slow his pace, but neither did he make a move to catch up with the scurrying servant. <sfx name="Wind Howling"/> At this distance, he couldn't hear what was being said over the wind and rain. But Sechel was speaking frantically, gesturing and waving his arms while the humans stared at him with cold contempt. Finally, the woman nodded, and the pair slowly moved out of the way. <sfx name="People Shuffling"/> Satisfied, Sechel turned and waited for Scourge to arrive.
+    </voice>
+    <voice name="Sechel">
+        <sfx name="Rain Pattering"/>"A thousand apologies, my lord,"
+    </voice>
+    <voice name="Narrator">
+        he said as they mounted the steps.
+    </voice>
+    <voice name="Sechel">
+        "Some Subjugates lack a proper understanding of our customs."<sfx name="Footsteps on Stone Steps"/>
+    </voice>
+</data>

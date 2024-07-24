@@ -1,0 +1,3 @@
+Transcript > SFX/Song library > XML Format with OpenAI > Text to speech > MP3 of voices with text encoding > Add sounds to mp3 based on closest word
+
+-All sfx with human voices must be labeled male or female

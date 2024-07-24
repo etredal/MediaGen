@@ -1,0 +1,54 @@
+Prompt:
+Add xml to this book text.  Always put sfx inside a voice tag.  You can only use voice and sfx tags.
+Here is the library of sfx.  Always use the same voice for the same character.
+You can insert sfx anywhere between words but inside of a voice tag.  Be creative.
+Remember to split up the xml for the right voices here, the character speaking needs to be in voice,
+but narration text needs to be split up back to the narrator voice.
+For example, from the raw data we create this:
+<data>
+    <voice name="Narrator">
+        Unfortunately, Scourge had no proof to back his theory. Yet even exiled to the uncivilized sectors on the farthest borders of the Empire, he had still managed to forge his reputation. His martial skills and <sfx name="Sword Slash"/> ruthless pursuit of the rebel leaders caught the notice of several prominent military leaders. Now, <sfx name="Whoosh"/> two years after leaving the Academy, he had returned to Dromund Kaas as a newly anointed Lord of the Sith. More important, he was here at the personal request of Darth Nyriss, one of the most senior members of the Emperor’s Dark Council.
+    </voice>
+    <voice name="Sechel">
+       <sfx name="Footsteps Approaching"/>“Lord Scourge,” 
+    </voice>
+    <voice name="Narrator">
+       a figure called out over the wind, running up to greet him. 
+    </voice>
+    <voice name="Sechel">
+       “I am Sechel. Welcome to Dromund Kaas.”
+    </voice>
+    <voice name="Scourge">
+        “Welcome back,” 
+    </voice>
+    <voice name="Narrator">
+        Scourge corrected as the man dropped to one knee and bowed his head in a gesture of respect. 
+    </voice>
+    <voice name="Scourge">
+        “This is not my first time on this world.”<sfx name="Bowing sound"/>
+    </voice>
+</data>
+-----------------------------------
+Each line of dialogue must be enclosed in a <voice> tag with the name of the character speaking (e.g., <voice name="Scourge">).
+All narration must be enclosed in a <voice name="Narrator"> tag.  Remember to split up the quotes and narration for example: 
+
+"Perhaps they need me to  remind them of their place," Scourge growled.
+
+should be:
+<data>
+    <voice name="Scourge">
+        "Perhaps they need me to remind them of their place,"<sfx name="Growl">
+    </voice>
+    <voice name="Narrator">
+        Scourge growled. 
+    </voice>
+</data>
+-----------------------------------
+Here is the text to label:
+By law, Scourge could have them imprisoned or executed for even a trifling offense. Judging by their confrontational behavior, they were blissfully unaware of this fact.
+
+As the rest of the crowd parted, the mercenaries remained in place, staring defiantly at Scourge as he approached. The Sith Lord bristled at the continued lack of respect. Sechel must have felt it as well, because he quickly rushed ahead to confront the pair.
+
+Scourge didn’t slow his pace, but neither did he make a move to catch up with the scurrying servant. At this distance, he couldn’t hear what was being said over the wind and rain. But Sechel was speaking frantically, gesturing and waving his arms while the humans stared at him with cold contempt. Finally, the woman nodded, and the pair slowly moved out of the way. Satisfied, Sechel turned and waited for Scourge to arrive.
+
+“A thousand apologies, my lord,” he said as they mounted the steps. “Some Subjugates lack a proper understanding of our customs.”

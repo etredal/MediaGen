@@ -6,7 +6,7 @@ import correlator
 
 DEBUG = True
 
-# Ms to s
+# Ms in s
 SECONDS = 1000
 
 # Load the Whisper model
@@ -94,7 +94,7 @@ def run(file_name = "1James"):
             file.write(f"{item['word']} (Start: {item['start']}s, End: {item['end']}s)\n")
             transcription_list.append({'word': item['word'], 'start': item['start'], 'end': item['end']})
     
-    xml_str = xml_str_file("LabeledTExt.xml")
+    xml_str = xml_str_file("LabeledText.xml")
 
     # Needs input of the basic xml string and a list of dict of word, start, end times from transcription
     sfx_time_correlations = correlator.correlate_sfx_times(xml_str, transcription_list)

@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 DEBUG = True
 
-def GenerateAudio(runID=1, text="Some Subjugates lack a proper understanding of our customs.", voice="Sarah")
+def GenerateAudio(runID=1, text="Some Subjugates lack a proper understanding of our customs.", voice="Sarah"):
   # Load environment variables from .env file to get vars
   load_dotenv()
   eleven_labs_api_key = os.getenv('ELEVEN_LABS_API_KEY')
@@ -21,3 +21,6 @@ def GenerateAudio(runID=1, text="Some Subjugates lack a proper understanding of 
   )
 
   save(audio, str(runID) + "TestSWT.mp3")
+
+if __name__ == '__main__':
+  GenerateAudio()

@@ -74,8 +74,7 @@ def xml_str_file(file):
     return xml_str
 
 # General runner: Takes file and generates xml, transcription, mp3, correlation sfx to mp3, final audio
-def run(file_name = "1James"):
-    file_name = "1James"
+def transcribeCorrelations(file_name = "1James"):
     file_path = "./" + file_name + ".mp3"
     transcription = transcribe_audio(file_path)
     words_with_timestamps = process_transcription(transcription)
@@ -104,4 +103,4 @@ def run(file_name = "1James"):
 
 # Main function
 if __name__ == "__main__":
-    run()
+    pass

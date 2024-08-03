@@ -1,4 +1,3 @@
-Prompt:
 Add xml to this book text.  Always put sfx inside a voice tag.  You can only use voice and sfx tags.
 Here is the library of sfx.  Always use the same voice for the same character.
 You can insert sfx anywhere between words but inside of a voice tag.  Be creative.

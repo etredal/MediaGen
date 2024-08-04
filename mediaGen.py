@@ -3,6 +3,7 @@ import anthropic
 from elevenlabs import play, save
 from elevenlabs.client import ElevenLabs
 from dotenv import load_dotenv
+import re
 
 DEBUG = True
 
@@ -80,5 +81,53 @@ def LabelText(text='''
 
   print(response.content)
 
+def read_file(file_path):
+  with open(file_path, 'r', encoding='utf-8') as file:
+    return file.read()
+
+def split_text(file_path, max_chunk_size=3000):
+  text = read_file(file_path)
+
+  # Define a pattern to split paragraphs, sentences, or chapters
+  # Here, we'll use paragraphs as the primary split criteria
+  paragraphs = re.split(r'\n\s*\n', text)
+  
+  chunks = []
+  current_chunk = ''
+  
+  for paragraph in paragraphs:
+      # If adding this paragraph would exceed the max chunk size, save the current chunk
+      if len(current_chunk) + len(paragraph) + 1 > max_chunk_size:
+          chunks.append(current_chunk.strip())
+          current_chunk = paragraph
+      else:
+          current_chunk += '\n\n' + paragraph
+  
+  # Add any remaining content as the last chunk
+  if current_chunk:
+      chunks.append(current_chunk.strip())
+  
+  return chunks
+
+def Chunk(file_path, output_folder):
+  # Adjust the chunk size as needed to fit about a page
+  chunks = split_text(file_path, max_chunk_size=3000)
+  
+  for i, chunk in enumerate(chunks):
+    chunk_filename = f'chunk_{i+1}.txt'
+    chunk_path = os.path.join(output_folder, chunk_filename)
+    
+    # Write the chunk to the output folder
+    with open(chunk_path, 'w', encoding='utf-8') as file:
+        file.write(chunk)
+    
+    print(f'Chunk {i+1} saved as {chunk_path}')
+
 if __name__ == '__main__':
-  LabelText()
+  project_file = './The_Monkeys_Paw.txt'
+  project_name = project_file.removeprefix('./').removesuffix('.txt')
+  project_folder = project_name + '_mediaGen'
+  os.makedirs(project_folder)
+
+  Chunk(project_file, project_folder)
+  # LabelText()

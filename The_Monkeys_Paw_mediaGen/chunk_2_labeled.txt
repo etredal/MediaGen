@@ -1,0 +1,59 @@
+Here is the text with XML tags:
+
+<data> 
+<voice name="Narrator">
+Part I
+</voice>
+<voice name="Narrator">  
+Unfortunately, Scourge had no proof to back his theory. 
+</voice>
+<voice name="Scourge">
+<sfx name="Scoff"/>
+</voice>
+<voice name="Narrator">
+Yet even exiled to the uncivilized sectors on the farthest borders of the Empire, he had still managed to forge his reputation. 
+</voice>
+<voice name="Scourge">
+<sfx name="Evil Chuckle"/>
+</voice>
+<voice name="Narrator">
+His martial skills and 
+</voice>
+<voice name="Scourge">  
+<sfx name="Lightsaber Swing"/>
+</voice>
+<voice name="Narrator">
+ ruthless pursuit of the rebel leaders caught the notice of several prominent military leaders.
+</voice>
+<voice name="Narrator">
+Now,  
+</voice>
+<voice name="Scourge">
+<sfx name="Force Push"/>  
+</voice>
+<voice name="Narrator">
+two years after leaving the Academy, he had returned to Dromund Kaas as a newly anointed Lord of the Sith. 
+</voice> 
+<voice name="Scourge">
+<sfx name="Evil Laugh"/>
+</voice>
+<voice name="Narrator">
+More important, he was here at the personal request of Darth Nyriss, one of the most senior members of the Emperor’s Dark Council.
+</voice>
+<voice name="Sechel">  
+<sfx name="Footsteps"/>
+</voice>  
+<voice name="Sechel">
+“Lord Scourge,”
+</voice>
+<voice name="Narrator">
+ a figure called out over the wind, running up to greet him.
+</voice>  
+<voice name="Sechel">
+“I am Sechel. Welcome to Dromund Kaas.”
+</voice>
+<voice name="Scourge">  
+“Welcome back,”
+</voice>
+<voice name="Narrator">  
+Scour

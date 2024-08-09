@@ -4,8 +4,13 @@ from elevenlabs import play, save
 from elevenlabs.client import ElevenLabs
 from dotenv import load_dotenv
 import re
+import shutil
 
 DEBUG = True
+
+def read_file(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file:
+        return file.read()
 
 def GenerateAudio(runID=1, text="Some Subjugates lack a proper understanding of our customs.", voice="Sarah"):
   # Load environment variables from .env file to get vars
@@ -79,11 +84,9 @@ def LabelText(text='''
     temperature=0.7
   )
 
-  print(response.content)
-
-def read_file(file_path):
-  with open(file_path, 'r', encoding='utf-8') as file:
-    return file.read()
+  if DEBUG:
+     print(response.content[0].text)
+  return response.content[0].text
 
 def split_text(file_path, max_chunk_size=3000):
   text = read_file(file_path)
@@ -111,23 +114,51 @@ def split_text(file_path, max_chunk_size=3000):
 
 def Chunk(file_path, output_folder):
   # Adjust the chunk size as needed to fit about a page
-  chunks = split_text(file_path, max_chunk_size=3000)
+  max_chunk_size = 3000
+  if DEBUG:
+    max_chunk_size = 100
+
+  chunks = split_text(file_path, max_chunk_size=max_chunk_size)
+
+  if DEBUG:
+     chunks = chunks[0:5]
   
+  total = len(chunks)
+  chunk_map = { "Chunk Count": total, "Chunks": [] }
   for i, chunk in enumerate(chunks):
     chunk_filename = f'chunk_{i+1}.txt'
     chunk_path = os.path.join(output_folder, chunk_filename)
     
     # Write the chunk to the output folder
     with open(chunk_path, 'w', encoding='utf-8') as file:
-        file.write(chunk)
+      file.write(chunk)
+
+    chunk_map["Chunks"].append(chunk_path)
     
     print(f'Chunk {i+1} saved as {chunk_path}')
+  
+  return chunk_map
 
-if __name__ == '__main__':
-  project_file = './The_Monkeys_Paw.txt'
+def GenerateProject(input_txt='./The_Monkeys_Paw.txt'):
+  project_file = input_txt
   project_name = project_file.removeprefix('./').removesuffix('.txt')
   project_folder = project_name + '_mediaGen'
+
+  if os.path.exists(project_folder):
+    shutil.rmtree(project_folder)
   os.makedirs(project_folder)
 
-  Chunk(project_file, project_folder)
-  # LabelText()
+  return project_file, project_name, project_folder
+
+def SplitAndLabelTxt(project_file, project_folder):
+  chunks_map = Chunk(project_file, project_folder)
+  for chunk in chunks_map["Chunks"]:
+     raw_text = read_file(chunk)
+     labeled_text = LabelText(text = raw_text)
+     labeled_path = os.path.join(os.path.dirname(chunk), os.path.basename(chunk).replace('.', '_labeled.'))
+     with open(labeled_path, 'w', encoding='utf-8') as file:
+      file.write(labeled_text)
+
+if __name__ == '__main__':
+  project_file, project_name, project_folder = GenerateProject()
+  SplitAndLabelTxt(project_file, project_folder)

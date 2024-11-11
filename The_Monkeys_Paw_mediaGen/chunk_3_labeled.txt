@@ -1,20 +1,5 @@
-Here is the text with xml tags:
-
+<data>
 <voice name="Narrator">
-Without, the night was cold and wet, but in the small parlour of Laburnum villa the blinds were drawn and the fire burned brightly. 
+Without, the night was cold and wet, but in the small parlour of Laburnum villa the blinds were drawn and the fire burned brightly. Father and son were at chess; the former, who possessed ideas about the game involving radical chances, putting his king into such sharp and unnecessary perils that it even provoked comment from the white-haired old lady knitting placidly by the fire.
 </voice>
-<voice name="Father">
-<sfx name="Chess piece move"/>"Checkmate!"
-</voice>
-<voice name="Narrator">
- Father and son were at chess; the former, who possessed ideas about the game involving radical chances, putting his king into such sharp and unnecessary perils that it even provoked comment from the white-haired old lady knitting placidly by the fire.
-</voice>
-<voice name="Old Lady">
-<sfx name="Knitting needles clicking"/> "My word, you are reckless tonight!"
-</voice>
-<voice name="Father">
-<sfx name="Laughter"/> "All part of the strategy, my dear!" 
-</voice>
-<voice name="Son">
-<sfx name="Sigh"/> "If you say so, Father."
-</voice>
+</data>

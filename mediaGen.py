@@ -5,6 +5,8 @@ from elevenlabs.client import ElevenLabs
 from dotenv import load_dotenv
 import re
 import shutil
+import transcribe
+import xml.etree.ElementTree as ET
 
 DEBUG = True
 
@@ -12,11 +14,11 @@ def read_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         return file.read()
 
-def GenerateAudio(runID=1, text="Some Subjugates lack a proper understanding of our customs.", voice="Sarah"):
+def GenerateAudio(text="Some Subjugates lack a proper understanding of our customs.", voice="Sarah", file_name="./Test"):
   # Load environment variables from .env file to get vars
   load_dotenv()
   client = ElevenLabs(
-    api_key=os.getenv('ELEVEN_LABS_API_KEY'), # Put your ElevenLabs API key here
+    api_key=os.getenv('ELEVEN_LABS_API_KEY'),
   )
 
   audio = client.generate(
@@ -25,7 +27,7 @@ def GenerateAudio(runID=1, text="Some Subjugates lack a proper understanding of 
     model="eleven_multilingual_v2"
   )
 
-  save(audio, str(runID) + "TestSWT.mp3")
+  save(audio, file_name)
 
 def LabelText(text='''
               Without, the night was cold and wet, but in the small parlour of Laburnum villa the blinds were drawn and the fire burned brightly. Father and son were at chess; the former, who possessed ideas about the game involving radical chances, putting his king into such sharp and unnecessary perils that it even provoked comment from the white-haired old lady knitting placidly by the fire.
@@ -38,6 +40,7 @@ def LabelText(text='''
   You can insert sfx anywhere between words but inside of a voice tag.  Be creative.
   Remember to split up the xml for the right voices here, the character speaking needs to be in voice,
   but narration text needs to be split up back to the narrator voice.  It should be split by quotes!
+  DO NOT INCLUDE ANYTHING EXCEPT THE XML.
   For example, from the raw data we create this:
   <data>
       <voice name="Narrator">
@@ -73,7 +76,7 @@ def LabelText(text='''
   )
 
   response = client.messages.create(
-    model="claude-1.3",
+    model="claude-2.0",
     messages=[
         {
             "role": "user",
@@ -86,6 +89,7 @@ def LabelText(text='''
 
   if DEBUG:
      print(response.content[0].text)
+  
   return response.content[0].text
 
 def split_text(file_path, max_chunk_size=3000):
@@ -152,13 +156,54 @@ def GenerateProject(input_txt='./The_Monkeys_Paw.txt'):
 
 def SplitAndLabelTxt(project_file, project_folder):
   chunks_map = Chunk(project_file, project_folder)
+
+  chunks_pair = []
   for chunk in chunks_map["Chunks"]:
      raw_text = read_file(chunk)
      labeled_text = LabelText(text = raw_text)
      labeled_path = os.path.join(os.path.dirname(chunk), os.path.basename(chunk).replace('.', '_labeled.'))
+
+     chunks_pair.append((chunk, labeled_path))
+
      with open(labeled_path, 'w', encoding='utf-8') as file:
       file.write(labeled_text)
 
+  return chunks_pair
+
+def XMLChunk(labeled_file_path):
+  text = read_file("./" + labeled_file_path)
+  print("NOTICE" + text)
+  root = ET.fromstring(text)
+
+  # Initialize the list to hold parsed data
+  parsed_data = []
+
+  # Iterate over each <voice> element
+  for voice in root.findall("voice"):
+      # Get the 'name' attribute
+      voice_name = voice.get("name")
+      # Get the text content, ignoring <sfx> tags and preserving text only
+      voice_text = "".join(voice.itertext()).strip()
+      # Append to parsed data list
+      parsed_data.append({"voice": voice_name, "text": voice_text})
+
+  return parsed_data
+
+def AudioTranscribeCorrelate(chunks_pair, project_folder):
+  for chunk_pair in chunks_pair:
+    xml_voice_list = XMLChunk(chunk_pair[1])
+    cur_mp3 = 1
+    for pair in xml_voice_list:
+      voice = pair["voice"]
+      voice = "Sarah"
+      GenerateAudio(pair["text"], voice, project_folder + "/" + chunk_pair[0].removeprefix('./').removesuffix('.txt') + str(cur_mp3) + ".mp3")
+      # transcribe.transcribeAndCorrelate(project_folder, )
+
 if __name__ == '__main__':
+  # TEST
+  # m = XMLChunk("./The_Monkeys_Paw_mediaGen/chunk_1_labeled.txt")
+  # GenerateAudio(m[0]["text"], "Sarah", "./Pizza" + str(1) + ".mp3")
+
   project_file, project_name, project_folder = GenerateProject()
-  SplitAndLabelTxt(project_file, project_folder)
+  chunks = SplitAndLabelTxt(project_file, project_folder)
+  AudioTranscribeCorrelate(chunks, project_folder)

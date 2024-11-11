@@ -1,14 +1,5 @@
-Here is the text with xml tags:
-
-<voice name="Narrator">  
-"I'm listening," 
+<data>
+<voice name="Narrator">
+"I'm listening," said the latter grimly surveying the board as he stretched out his hand. <sfx name="Check Piece Place"/>"Check."
 </voice>
-<voice name="Character1">
-said 
-<sfx name="Character1 voice"/>
-the latter grimly surveying the board as he stretched out his hand. 
-</voice> 
-<voice name="Character1">
-"Check."
-<sfx name="Piece moving"/>
-</voice>
+</data>

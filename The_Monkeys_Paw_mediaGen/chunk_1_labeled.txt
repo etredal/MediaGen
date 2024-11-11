@@ -1,23 +1,37 @@
-Here is the text with xml added:
 
 <data>
-<voice name="Narrator">The Monkey's Paw</voice> 
-<voice name="Narrator">by W. W. Jacobs</voice>   
-
-<voice name="Narrator">"Be careful what you wish for, you may receive it."</voice> <voice name="Narrator"> --Anonymous</voice>
-
-<voice name="Narrator">Mr. White and his son Herbert were playing chess; Mrs. White was knitting by the fire.</voice>
-<voice name="Herbert"><sfx name="Chess piece move"/>Check!</voice> 
-<voice name="Mr. White"><sfx name="Chess piece move"/>Checkmate!</voice>
-<voice name="Narrator">Herbert laughed and began setting up the pieces again. </voice>
-<voice name="Mrs. White">I wish you wouldn't keep on winning, Herbert. Your father will lose his temper some day.</voice> 
-<voice name="Mr. White"><sfx name="Chuckle"/>Not I. Losing a game or two won't do me any harm. I'm not a bad loser.</voice>
-
-<voice name="Narrator">A cold wind was blowing outside, and the three of them were glad to be together in the warm parlour. The fire crackled cheerfully, and the lamp on the table shed a bright light on the white cloth and the gleaming china. </voice>
-<voice name="Mrs. White"><sfx name="Pouring liquid"/>More tea, Herbert?</voice>
-<voice name="Herbert">No thanks, mother. I've had enough.</voice>
-<voice name="Mrs. White">Well, you can have some more cake if you like. I'm sure your
-father can do with another cup. </voice> 
-<voice name="Mr. White">Not for me, thank you. I've had two cups already. Any more would keep me awake half the night. We'll have a fresh pot tomorrow. </voice>
-
-<voice name="Narrator">Mrs. White refilled the teapot and set it on the hob to keep warm. The little party settled down again, Herbert returning to his book, and Mr. and Mrs. White beginning another game of
+<voice name="Narrator">
+Without, <sfx name="Wind Howling"/>the night was cold and wet, but in the small parlor of Laburnam Villa the blinds were drawn and the fire burned brightly. Father and son were at chess, the former, who possessed ideas about the game involving radical changes, putting his king into such sharp and unnecessary perils that it even provoked comment from the white-haired old lady knitting placidly by the fire. 
+</voice>
+<voice name="Mrs. White">
+<sfx name="Knitting Needles Clicking"/>
+</voice>
+<voice name="Narrator">
+"Hark at the wind," said Mr. White, who, having seen a fatal mistake after it was too late, was amiably desirous of preventing his son from seeing it. 
+</voice>
+<voice name="Mr. White">
+"I'm listening," 
+</voice>
+<voice name="Narrator">
+said the latter, grimly surveying the board as he stretched out his hand. 
+</voice>
+<voice name="Mr. White">
+"Check." 
+</voice>
+<voice name="Narrator">
+"I should hardly think that he'd come tonight," said his father, with his hand poised over the board. 
+</voice>
+<voice name="Mr. White">
+"Mate," 
+</voice>
+<voice name="Narrator">
+replied the son.
+</voice>
+<voice name="Mr. White">
+<sfx name="Sigh"/>
+</voice>
+<voice name="Narrator">
+"That's the worst of living so far out," bawled Mr. White, with sudden and unlooked-for violence; "Of all the beastly, slushy, out-of-the-way places to live in, this is the worst. Pathway's a bog, and the road's a torrent. I don't know what people are thinking about. I suppose because only two houses in the road are let, they think it doesn't matter."
+</voice>
+<sfx name="Knitting Needles Clicking"/>
+</data>

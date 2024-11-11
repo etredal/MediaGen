@@ -58,8 +58,8 @@ def normalize(text):
 
 def xml_str_file(file):
     raw_xml = ""
-    with open('./LabeledText.xml', 'rb') as file:
-        raw_xml = file.read()
+    with open(file, 'rb') as f:
+        raw_xml = f.read()
 
     # Parse the raw XML content
     root = etree.fromstring(raw_xml)
@@ -73,9 +73,9 @@ def xml_str_file(file):
 
     return xml_str
 
-# General runner: Takes file and generates xml, transcription, mp3, correlation sfx to mp3, final audio
-def transcribeCorrelations(file_name = "1James"):
-    file_path = "./" + file_name + ".mp3"
+# General runner: Takes file starts, transcription, mp3, correlation sfx to mp3, final audio
+def transcribeAndCorrelate(project_folder, audio_file, xml_file):
+    file_path = project_folder + audio_file + ".mp3"
     transcription = transcribe_audio(file_path)
     words_with_timestamps = process_transcription(transcription)
 
@@ -86,14 +86,14 @@ def transcribeCorrelations(file_name = "1James"):
 
     # Write transcription to file
     transcription_list = []
-    with open(file_name + "TranscriptionOutput.txt", "w") as file:
+    with open(audio_file + "_TranscriptionOutput.txt", "w") as file:
         # Iterate through each item in the list
         for item in words_with_timestamps:
             # Write the item to the file
             file.write(f"{item['word']} (Start: {item['start']}s, End: {item['end']}s)\n")
             transcription_list.append({'word': item['word'], 'start': item['start'], 'end': item['end']})
     
-    xml_str = xml_str_file("LabeledText.xml")
+    xml_str = xml_str_file(xml_file)
 
     # Needs input of the basic xml string and a list of dict of word, start, end times from transcription
     sfx_time_correlations = correlator.correlate_sfx_times(xml_str, transcription_list)
@@ -101,6 +101,10 @@ def transcribeCorrelations(file_name = "1James"):
     if DEBUG:
         print(sfx_time_correlations)
 
-# Main function
-if __name__ == "__main__":
-    pass
+    return sfx_time_correlations
+
+# TODO: Generate Text to Speech
+
+# TODO: Access SFX library
+
+# TODO: Overlay sfx time correlations to audio

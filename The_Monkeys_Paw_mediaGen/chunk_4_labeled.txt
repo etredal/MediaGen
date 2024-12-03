@@ -1,5 +1,8 @@
 <data>
+<voice name="Mr. White">
+"Hark at the wind,"
+</voice> 
 <voice name="Narrator">
-"Hark at the wind," said Mr. White, who, having seen a fatal mistake after it was too late, was amiably desirous of preventing his son from seeing it.
+said Mr. White, who, having seen a fatal mistake after it was too late, was amiably desirous of preventing his son from seeing it.
 </voice>
 </data>

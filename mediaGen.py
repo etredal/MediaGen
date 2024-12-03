@@ -40,7 +40,7 @@ def LabelText(text='''
   You can insert sfx anywhere between words but inside of a voice tag.  Be creative.
   Remember to split up the xml for the right voices here, the character speaking needs to be in voice,
   but narration text needs to be split up back to the narrator voice.  It should be split by quotes!
-  DO NOT INCLUDE ANYTHING EXCEPT THE XML.
+  DO NOT INCLUDE ANYTHING EXCEPT THE XML.  Makesure to include the </data>
   For example, from the raw data we create this:
   <data>
       <voice name="Narrator">
@@ -159,14 +159,20 @@ def SplitAndLabelTxt(project_file, project_folder):
 
   chunks_pair = []
   for chunk in chunks_map["Chunks"]:
-     raw_text = read_file(chunk)
-     labeled_text = LabelText(text = raw_text)
-     labeled_path = os.path.join(os.path.dirname(chunk), os.path.basename(chunk).replace('.', '_labeled.'))
+    raw_text = read_file(chunk)
+    labeled_text = LabelText(text = raw_text)
+    labeled_path = os.path.join(os.path.dirname(chunk), os.path.basename(chunk).replace('.', '_labeled.')).replace('\\','/')
 
-     chunks_pair.append((chunk, labeled_path))
+    chunks_pair.append((chunk, labeled_path))
 
-     with open(labeled_path, 'w', encoding='utf-8') as file:
-      file.write(labeled_text)
+    prepared_labeled_text = re.search(r'<data>(.*?)</data>', labeled_text, re.DOTALL)
+
+    if (prepared_labeled_text):
+      with open(labeled_path, 'w', encoding='utf-8') as file:
+        file.write(prepared_labeled_text.group(0))
+    else:
+       with open(labeled_path, 'w', encoding='utf-8') as file:
+        file.write("<data>"+labeled_text+"</data>")
 
   return chunks_pair
 
@@ -190,14 +196,22 @@ def XMLChunk(labeled_file_path):
   return parsed_data
 
 def AudioTranscribeCorrelate(chunks_pair, project_folder):
+  voice_list = []
   for chunk_pair in chunks_pair:
     xml_voice_list = XMLChunk(chunk_pair[1])
     cur_mp3 = 1
     for pair in xml_voice_list:
       voice = pair["voice"]
       voice = "Sarah"
-      GenerateAudio(pair["text"], voice, project_folder + "/" + chunk_pair[0].removeprefix('./').removesuffix('.txt') + str(cur_mp3) + ".mp3")
-      # transcribe.transcribeAndCorrelate(project_folder, )
+
+      audio_path = "./" + chunk_pair[0].removeprefix('./').removesuffix('.txt').replace("\\","/") + "-" + str(cur_mp3) + ".mp3"
+
+      GenerateAudio(pair["text"], voice, audio_path)
+      cur_mp3 += 1
+
+      voice_list.append(audio_path)
+
+  return voice_list
 
 if __name__ == '__main__':
   # TEST
@@ -206,4 +220,7 @@ if __name__ == '__main__':
 
   project_file, project_name, project_folder = GenerateProject()
   chunks = SplitAndLabelTxt(project_file, project_folder)
-  AudioTranscribeCorrelate(chunks, project_folder)
+  voice_list = AudioTranscribeCorrelate(chunks, project_folder)
+
+  # combine audio
+  # correlate

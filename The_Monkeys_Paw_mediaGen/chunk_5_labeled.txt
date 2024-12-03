@@ -1,5 +1,8 @@
 <data>
 <voice name="Narrator">
-"I'm listening," said the latter grimly surveying the board as he stretched out his hand. <sfx name="Check Piece Place"/>"Check."
+"I'm listening," said the latter grimly surveying the board as he stretched out his hand. 
+</voice>
+<voice name="Character">
+<sfx name="Check sound"/>"Check."
 </voice>
 </data>

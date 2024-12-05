@@ -7,6 +7,8 @@ import re
 import shutil
 import transcribe
 import xml.etree.ElementTree as ET
+import pydub
+from pydub import AudioSegment
 
 DEBUG = True
 
@@ -143,7 +145,7 @@ def Chunk(file_path, output_folder):
   
   return chunk_map
 
-def GenerateProject(input_txt='./The_Monkeys_Paw.txt'):
+def GenerateProject(input_txt='./Small_Test.txt'):
   project_file = input_txt
   project_name = project_file.removeprefix('./').removesuffix('.txt')
   project_folder = project_name + '_mediaGen'
@@ -195,32 +197,52 @@ def XMLChunk(labeled_file_path):
 
   return parsed_data
 
-def AudioTranscribeCorrelate(chunks_pair, project_folder):
-  voice_list = []
+def AudioTranscribeCorrelate(chunks_pair):
+  voice_lists = {}
   for chunk_pair in chunks_pair:
     xml_voice_list = XMLChunk(chunk_pair[1])
     cur_mp3 = 1
+
+    voice_lists[chunk_pair[0]] = []
     for pair in xml_voice_list:
       voice = pair["voice"]
       voice = "Sarah"
 
-      audio_path = "./" + chunk_pair[0].removeprefix('./').removesuffix('.txt').replace("\\","/") + "-" + str(cur_mp3) + ".mp3"
+      audio_path = "./" + chunk_pair[0].removeprefix('./').removesuffix('.txt').replace("\\","/") + "_" + str(cur_mp3) + ".mp3"
 
       GenerateAudio(pair["text"], voice, audio_path)
       cur_mp3 += 1
 
-      voice_list.append(audio_path)
+      voice_lists[chunk_pair[0]].append(audio_path)
 
-  return voice_list
+  return voice_lists
+
+def CombineAudio(voice_lists, project_folder):
+  combined_audio_chunks = []
+
+  cur_chunk = 1
+  for key, file_paths in voice_lists.items():
+      combined = AudioSegment.empty()
+      for audio_clip in file_paths:
+        # Load each audio file
+        if (DEBUG):
+          print(f"Processing key: {key}, file: {audio_clip}")
+        audio = AudioSegment.from_file(audio_clip)
+        combined += audio
+      combined_audio_filepath = project_folder + "/chunk_" + str(cur_chunk) + "_combined" + ".mp3"
+      combined.export(combined_audio_filepath, format="mp3")
+      combined_audio_chunks.append(combined_audio_filepath)
+
+      cur_chunk += 1
+  
+  return combined_audio_chunks
 
 if __name__ == '__main__':
-  # TEST
-  # m = XMLChunk("./The_Monkeys_Paw_mediaGen/chunk_1_labeled.txt")
-  # GenerateAudio(m[0]["text"], "Sarah", "./Pizza" + str(1) + ".mp3")
-
   project_file, project_name, project_folder = GenerateProject()
   chunks = SplitAndLabelTxt(project_file, project_folder)
-  voice_list = AudioTranscribeCorrelate(chunks, project_folder)
-
-  # combine audio
+  voice_lists = AudioTranscribeCorrelate(chunks)
+  combined_audio_chunks = CombineAudio(voice_lists, project_folder)
+  # Parse and generate every SFX
   # correlate
+  # Add sfx to each location
+  # Combine all final files for final audio

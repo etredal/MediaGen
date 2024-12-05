@@ -102,9 +102,3 @@ def transcribeAndCorrelate(project_folder, audio_file, xml_file):
         print(sfx_time_correlations)
 
     return sfx_time_correlations
-
-# TODO: Generate Text to Speech
-
-# TODO: Access SFX library
-
-# TODO: Overlay sfx time correlations to audio

@@ -75,7 +75,7 @@ def xml_str_file(file):
 
 # General runner: Takes file starts, transcription, mp3, correlation sfx to mp3, final audio
 def transcribeAndCorrelate(project_folder, audio_file, xml_file):
-    file_path = project_folder + audio_file + ".mp3"
+    file_path = audio_file
     transcription = transcribe_audio(file_path)
     words_with_timestamps = process_transcription(transcription)
 

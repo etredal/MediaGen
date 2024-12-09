@@ -6,9 +6,6 @@
         He was walking down the street when a car swerved in front of him.  
     </voice>
     <voice name="Narrator">
-        He heard a loud <sfx name="Crash"/> crashing sound
-    </voice>
-    <voice name="Timothy">
-        and quickly jumped away.
+        He heard a loud <sfx name="Crash"/> crashing sound and quickly jumped away.
     </voice>
 </data>

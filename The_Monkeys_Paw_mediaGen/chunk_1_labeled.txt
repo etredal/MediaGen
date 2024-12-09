@@ -1,45 +1,55 @@
+<data>Here is the XML labeled book text:
+
 <data>
 <voice name="Narrator">
 The Monkey's Paw
 by W. W. Jacobs
+</voice>
 
+<voice name="Narrator">
 "Be careful what you wish for, you may receive it." --Anonymous
 </voice>
 
-<voice name="Mr. White">
-<sfx name="Door Opens"/>Without, the night was cold and wet, but in the small parlor of Lakesnam Villa the blinds were drawn and the fire burned brightly. Father and son were at chess; the former, who possessed ideas about the game involving radical chances, putting his king into such sharp and unnecessary perils that it even provoked comment from the white-haired old lady knitting placidly by the fire.
+<voice name="Narrator">
+Without, <sfx name="Wind Howling"/> the night was cold and wet, but in the small parlor of Lakesnam Villa the blinds were drawn and the fire burned brightly. Father and son were at chess; the former, who possessed ideas about the game involving radical chances, putting his king into such sharp and unnecessary perils that it even provoked comment from the white-haired old lady knitting placidly by the fire. 
 </voice>
 
 <voice name="Mrs. White">
-<sfx name="Knitting Needles"/>Hark at the wind,
-</voice>
-
-<voice name="Narrator">
-said Mr. White, who, having seen a fatal mistake after it was too late, was amiably desirous of preventing his son from seeing it. 
-</voice>
-
-<voice name="Mr. White">
-I'm listening, 
-</voice>
-
-<voice name="Narrator">
-said the latter grimly surveying the board as he stretched out his hand. 
-</voice>
-
-<voice name="Mrs. White">
-<sfx name="Wind Howling"/>I wish you wouldn't,
-</voice>
-
-<voice name="Narrator">
-said his wife sharply. 
-</voice>
-
-<voice name="Mrs. White">
-It's on account of that cold you caught,
-</voice>
+"Hark <sfx name="Knitting Needles Clicking"/> at the wind,"
+</voice>  
 
 <voice name="Narrator">
 she said.
 </voice>
 
-</data>
+<voice name="Mr. White">
+"I'm listening,"
+</voice>
+
+<voice name="Narrator">
+said her husband, who was deaf. 
+</voice>
+
+<voice name="Mrs. White"> 
+"It sounds as if someone is crying in the wind."
+</voice>
+
+<voice name="Narrator">
+"It's only the wind," said the old man, taking Sergeant-Major Morris's pawn. "What an imaginative woman you are! How can the wind cry like a child?"
+</voice>
+
+<voice name="Mrs. White">
+"It sounds to me like a child crying." 
+</voice>
+
+<voice name="Narrator">
+The fire flickered and the old man shrugged his shoulders. Mr. White moved his knight and straightened out the pieces. His son, Herbert, took up the story.
+</voice>
+
+<voice name="Herbert">
+"It's been ten years since we heard from him last," he said. "I wonder where he is now."
+</voice>
+
+<voice name="Narrator">
+"I expect he's dead," said his father gruffly. "He would be if he had any sense."
+</</data>

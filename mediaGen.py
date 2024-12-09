@@ -145,7 +145,7 @@ def Chunk(file_path, output_folder):
   
   return chunk_map
 
-def GenerateProject(input_txt='./Small_Test.txt'):
+def GenerateProject(input_txt='./The_Monkeys_Paw.txt'):
   project_file = input_txt
   project_name = project_file.removeprefix('./').removesuffix('.txt')
   project_folder = project_name + '_mediaGen'
@@ -237,12 +237,22 @@ def CombineAudio(voice_lists, project_folder):
   
   return combined_audio_chunks
 
+def ProcessTranscriptions(project_folder, combined_audio_chunks, chunks):
+  # Key: File, Value: List[(sfx,timestamp)]
+  file_sfx_timestamps_pairs = {}
+  i = 0
+  for audio_chunk in combined_audio_chunks:
+    file_sfx_timestamps_pairs[chunks[i][1]] = transcribe.transcribeAndCorrelate(project_folder, audio_chunk, chunks[i][1])
+
+    i += 1
+  return file_sfx_timestamps_pairs
+
 if __name__ == '__main__':
   project_file, project_name, project_folder = GenerateProject()
   chunks = SplitAndLabelTxt(project_file, project_folder)
   voice_lists = AudioTranscribeCorrelate(chunks)
   combined_audio_chunks = CombineAudio(voice_lists, project_folder)
+  file_sfx_timestamps_pairs = ProcessTranscriptions(project_folder, combined_audio_chunks, chunks)
   # Parse and generate every SFX
-  # correlate
-  # Add sfx to each location
+  # Add sfx to each location and create a chunk_x_combined_sfx.mp3 file
   # Combine all final files for final audio

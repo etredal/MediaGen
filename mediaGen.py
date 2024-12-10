@@ -12,6 +12,9 @@ from pydub import AudioSegment
 
 DEBUG = True
 
+# Ms in s
+SECONDS = 1000
+
 def read_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         return file.read()
@@ -30,6 +33,20 @@ def GenerateAudio(text="Some Subjugates lack a proper understanding of our custo
   )
 
   save(audio, file_name)
+
+def GenerateAudioSFX(text, file_name):
+  # Load environment variables from .env file to get vars
+  load_dotenv()
+  client = ElevenLabs(
+    api_key=os.getenv('ELEVEN_LABS_API_KEY'),
+  )
+
+  audio = client.text_to_sound_effects.convert(
+    text=text,
+  )
+
+  save(audio, file_name)
+   
 
 def LabelText(text='''
               Without, the night was cold and wet, but in the small parlour of Laburnum villa the blinds were drawn and the fire burned brightly. Father and son were at chess; the former, who possessed ideas about the game involving radical chances, putting his king into such sharp and unnecessary perils that it even provoked comment from the white-haired old lady knitting placidly by the fire.
@@ -145,7 +162,7 @@ def Chunk(file_path, output_folder):
   
   return chunk_map
 
-def GenerateProject(input_txt='./The_Monkeys_Paw.txt'):
+def GenerateProject(input_txt='./Small_Test.txt'):
   project_file = input_txt
   project_name = project_file.removeprefix('./').removesuffix('.txt')
   project_folder = project_name + '_mediaGen'
@@ -238,21 +255,59 @@ def CombineAudio(voice_lists, project_folder):
   return combined_audio_chunks
 
 def ProcessTranscriptions(project_folder, combined_audio_chunks, chunks):
-  # Key: File, Value: List[(sfx,timestamp)]
-  file_sfx_timestamps_pairs = {}
+  # List: File (Combined mp3), [List[dict(sfx,timestamp,min_dist)]]
+  file_sfx_timestamps_pairs = []
   i = 0
   for audio_chunk in combined_audio_chunks:
-    file_sfx_timestamps_pairs[chunks[i][1]] = transcribe.transcribeAndCorrelate(project_folder, audio_chunk, chunks[i][1])
+    file_sfx_timestamps_pairs.append(transcribe.transcribeAndCorrelate(project_folder, audio_chunk, chunks[i][1]))
 
     i += 1
   return file_sfx_timestamps_pairs
 
+def GenerateSFX(project_folder, file_sfx_timestamps_pairs):
+  # Key: xml tag mp3, Value: file dir to mp3
+  sfx_mp3_map = {}
+  for sfx_time_stamp_list in file_sfx_timestamps_pairs:
+     for sfx_dict in sfx_time_stamp_list:
+        xml_name = sfx_dict['sfx_name']
+
+        start_index = xml_name.find('"') + 1
+        end_index = xml_name.find('"', start_index)
+
+        # Extract the value between the quotes
+        sfx_prompt_text = xml_name[start_index:end_index]
+
+        if xml_name not in sfx_mp3_map:
+          sfx_mp3_file = project_folder + "/sfx_" + sfx_prompt_text.replace(" ", "") + ".mp3"
+          GenerateAudioSFX(sfx_prompt_text, sfx_mp3_file)
+          sfx_mp3_map[xml_name] = sfx_mp3_file
+
+def OverlaySFXList(main, sfx_timestamp_list, final_file_path):
+    # Load the existing MP3 file and the SFX file
+    existing_mp3 = AudioSegment.from_file(main)
+
+    for sfx_timestamp in sfx_timestamp_list:
+      sfx = AudioSegment.from_file(sfx_timestamp[0])
+      sfx_adjusted = sfx.apply_gain(-20)
+
+      # Mix the SFX into the existing MP3 file at the desired position
+      # Determine the position where you want to mix the SFX (e.g., at 10 seconds)
+      position = sfx_timestamp[1] * SECONDS  # Position in milliseconds
+      existing_mp3 = existing_mp3.overlay(sfx_adjusted, position=position)
+
+    # Export the mixed audio to a new file
+    existing_mp3.export(final_file_path, format="mp3")
+
+def OrchestrateOverlaySFXList(project_folder, file_sfx_timestamps_pairs, sfx_map):
+    # TODO: Overlay sfx to each location and create a chunk_x_combined_sfx.mp3 file
+    pass
+
 if __name__ == '__main__':
   project_file, project_name, project_folder = GenerateProject()
   chunks = SplitAndLabelTxt(project_file, project_folder)
-  voice_lists = AudioTranscribeCorrelate(chunks)
+  voice_lists = AudioTranscribeCorrelate(chunks) # TODO: Add voice swapping
   combined_audio_chunks = CombineAudio(voice_lists, project_folder)
   file_sfx_timestamps_pairs = ProcessTranscriptions(project_folder, combined_audio_chunks, chunks)
-  # Parse and generate every SFX
-  # Add sfx to each location and create a chunk_x_combined_sfx.mp3 file
-  # Combine all final files for final audio
+  sfx_map = GenerateSFX(project_folder, file_sfx_timestamps_pairs)
+  combinedSFX_list = OrchestrateOverlaySFXList(project_folder, file_sfx_timestamps_pairs, sfx_map)
+  # TODO: Combine all final files for final audio

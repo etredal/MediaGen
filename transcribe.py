@@ -98,7 +98,4 @@ def transcribeAndCorrelate(project_folder, audio_file, xml_file):
     # Needs input of the basic xml string and a list of dict of word, start, end times from transcription
     sfx_time_correlations = correlator.correlate_sfx_times(xml_str, transcription_list)
 
-    if DEBUG:
-        print(sfx_time_correlations)
-
     return sfx_time_correlations

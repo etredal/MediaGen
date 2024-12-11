@@ -1,19 +1,19 @@
 <data>
-    <voice name="Narrator">
-        "Oh I love to travel", said Timothy.  
-    </voice>
-    <voice name="Timothy">
-        "Oh I love to travel"
-    </voice>
-    <voice name="Narrator">
-        He was walking down the street when a car swerved in front of him.  
-    </voice>
-    <sfx name="Tires Screeching"/>
-    <voice name="Narrator">
-        He heard a loud crashing sound
-    </voice>
-    <sfx name="Crash"/>
-    <voice name="Narrator">
-        and quickly jumped away.
-    </voice>
+<voice name="Narrator">
+"Oh I love to travel", said Timothy.  
+</voice>
+<voice name="Timothy">
+"Oh I love to travel"
+</voice>
+<voice name="Narrator">
+He was walking down the street when a car swerved in front of him.  
+</voice>
+<sfx name="Tires Screeching"/>
+<voice name="Narrator">
+He heard a loud crashing sound
+</voice>
+<sfx name="Crash"/>
+<voice name="Narrator">
+and quickly jumped away.
+</voice>
 </data>

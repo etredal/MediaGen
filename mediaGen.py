@@ -19,7 +19,7 @@ def read_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         return file.read()
 
-def GenerateAudio(text="Some Subjugates lack a proper understanding of our customs.", voice="Sarah", file_name="./Test"):
+def GenerateAudio(text, voice, file_name):
   # Load environment variables from .env file to get vars
   load_dotenv()
   client = ElevenLabs(
@@ -162,7 +162,7 @@ def Chunk(file_path, output_folder):
   
   return chunk_map
 
-def GenerateProject(input_txt='./Small_Test.txt'):
+def GenerateProject(input_txt='./PeterPanSmall.txt'):
   project_file = input_txt
   project_name = project_file.removeprefix('./').removesuffix('.txt')
   project_folder = project_name + '_mediaGen'
@@ -223,7 +223,7 @@ def AudioTranscribeCorrelate(chunks_pair):
     voice_lists[chunk_pair[0]] = []
     for pair in xml_voice_list:
       voice = pair["voice"]
-      voice = "Sarah"
+      voice = "Brian"
 
       audio_path = "./" + chunk_pair[0].removeprefix('./').removesuffix('.txt').replace("\\","/") + "_" + str(cur_mp3) + ".mp3"
 
@@ -281,6 +281,8 @@ def GenerateSFX(project_folder, file_sfx_timestamps_pairs):
           sfx_mp3_file = project_folder + "/sfx_" + sfx_prompt_text.replace(" ", "") + ".mp3"
           GenerateAudioSFX(sfx_prompt_text, sfx_mp3_file)
           sfx_mp3_map[xml_name] = sfx_mp3_file
+  
+  return sfx_mp3_map
 
 def OverlaySFXList(main, sfx_timestamp_list, final_file_path):
     # Load the existing MP3 file and the SFX file
@@ -298,9 +300,39 @@ def OverlaySFXList(main, sfx_timestamp_list, final_file_path):
     # Export the mixed audio to a new file
     existing_mp3.export(final_file_path, format="mp3")
 
-def OrchestrateOverlaySFXList(project_folder, file_sfx_timestamps_pairs, sfx_map):
-    # TODO: Overlay sfx to each location and create a chunk_x_combined_sfx.mp3 file
-    pass
+def OrchestrateOverlaySFXList(project_folder, combined_audio_chunks, file_sfx_timestamps_pairs, sfx_map):
+  finalized_audio_chunks_filepaths = []
+
+  for i in range(len(combined_audio_chunks)):
+    combined_audio_path = combined_audio_chunks[i]
+    sfx_list = file_sfx_timestamps_pairs[i]
+
+    # build up new list of 
+    sfx_with_mp3 = []
+    for sfx in sfx_list:
+      sfx_with_mp3.append(("./" + sfx_map[sfx['sfx_name']], sfx['start_time']))
+    
+    final_combined_file_path = "./" + combined_audio_path + "_final.mp3"
+    OverlaySFXList(combined_audio_path, sfx_with_mp3, final_combined_file_path)
+
+    finalized_audio_chunks_filepaths.append(final_combined_file_path)
+
+  return finalized_audio_chunks_filepaths
+
+def CombineFinalizedFiles(project_folder, combinedSFX_list, final_name):
+  combined_audio = AudioSegment.empty()
+
+  # Combine all the audio files
+  for file in combinedSFX_list:
+      try:
+          audio = AudioSegment.from_file(file)
+          combined_audio += audio
+      except Exception as e:
+          print(f"Error processing file {file}: {e}")
+
+  combined_audio.export("./" + project_folder + "/" + final_name + ".mp3", format="mp3")
+
+  print(f"Finalized audio saved to {final_name}")
 
 if __name__ == '__main__':
   project_file, project_name, project_folder = GenerateProject()
@@ -309,5 +341,5 @@ if __name__ == '__main__':
   combined_audio_chunks = CombineAudio(voice_lists, project_folder)
   file_sfx_timestamps_pairs = ProcessTranscriptions(project_folder, combined_audio_chunks, chunks)
   sfx_map = GenerateSFX(project_folder, file_sfx_timestamps_pairs)
-  combinedSFX_list = OrchestrateOverlaySFXList(project_folder, file_sfx_timestamps_pairs, sfx_map)
-  # TODO: Combine all final files for final audio
+  combinedSFX_list = OrchestrateOverlaySFXList(project_folder, combined_audio_chunks, file_sfx_timestamps_pairs, sfx_map)
+  final_file = CombineFinalizedFiles(project_folder, combinedSFX_list, project_name + "Finalized")

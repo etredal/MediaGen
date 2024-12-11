@@ -78,7 +78,10 @@ def sliding_window_match(sfx_words, timestamped_words):
                 min_distance = current_distance
                 
                 # Find the start time of the first word in the "after" list that matches right_words
-                start_time = window_words[len(tuple[1])]["start"]
+                if len(tuple[2]) != 0: # These are the after words, if it is empty just take the last of the start words
+                    start_time = window_words[len(tuple[1])]["start"]
+                else:
+                    start_time = window_words[len(tuple[1]) - 1]["start"]
 
         if start_time is not None and min_distance < 25:
             best_matches.append({

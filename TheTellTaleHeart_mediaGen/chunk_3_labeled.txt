@@ -1,0 +1,5 @@
+<data>
+    <voice name="Narrator">
+        It is impossible to say how first the idea entered my brain; but once conceived, <sfx name="Heartbeat"/> it haunted me day and night. Object there was none. Passion there was none. I loved the old man. He had never wronged me. He had never given me insult. For his gold I had no desire. I think it was his eye! <sfx name="Thunder Rumble"/> yes, it was this! One of his eyes resembled that of a vulture — a pale blue eye, with a film over it. Whenever it fell upon me, <sfx name="Shiver"/> my blood ran cold; and so by degrees — very gradually — I made up my mind to take the life of the old man, and thus rid myself of the eye forever.
+    </voice>
+</data>

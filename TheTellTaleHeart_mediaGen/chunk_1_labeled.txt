@@ -1,0 +1,36 @@
+<data><data>
+    <voice name="Narrator">
+        The girl in the garden was very still and very quiet. She was sitting on the ground, her back against a tree trunk. She wasn't doing anything at all. She was just sitting and looking at something. <sfx name="Birds Chirping"/> The boy who found her there looked at her for a long time. He wasn't hiding exactly, but he was standing behind a tree and she couldn't see him. <sfx name="Wind Rustling"/> He was thinking about whether to speak to her or not. He had never seen her before. She was small and thin, with a sharp bony face. Her hair was the color of dirt and it was cut very short, as if someone had just chopped it off with a knife.
+    </voice>
+    <voice name="Boy">
+        <sfx name="Footsteps Approaching"/> "Hello," 
+    </voice>
+    <voice name="Narrator">
+        he said at last, stepping out from behind the tree.
+    </voice>
+    <voice name="Boy">
+        "What are you doing?"
+    </voice>
+    <voice name="Narrator">
+        The girl looked up at him. Her eyes were large and dark.
+    </voice>
+    <voice name="Girl">
+        "I'm watching a spider," 
+    </voice>
+    <voice name="Narrator">
+        she said. 
+    </voice>
+    <voice name="Girl">
+        <sfx name="Leaves Rustling"/> "It's making a web."
+    </voice>
+    <voice name="Narrator">
+        The boy came closer and crouched down beside her. Sure enough, there was a small black spider spinning a web between two twigs of a low bush. <sfx name="Insect Buzzing"/> The web was very delicate and very complicated. It glittered in the sunlight.
+    </voice>
+    <voice name="Boy">
+        "How long have you been watching it?" 
+    </voice>
+    <voice name="Narrator">
+        he asked.
+    </voice>
+    <voice name="Girl">
+        "A long time.</data>

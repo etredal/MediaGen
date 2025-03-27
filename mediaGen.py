@@ -1,5 +1,6 @@
 import os
 import anthropic
+from openai import OpenAI
 from elevenlabs import play, save
 from elevenlabs.client import ElevenLabs
 from dotenv import load_dotenv
@@ -85,17 +86,19 @@ def LabelText(text='''
       </voice>
   </data>
   -----------------------------------
-  Here is the text to label:
+  Here is the text to label only include the XML:
 
   '''
 
   load_dotenv()
+  '''
   client = anthropic.Anthropic(
-    api_key=os.getenv('CLAUDE_KEY')
+    api_key=os.getenv('CLAUDE_KEY'),
+    base_url="https://api.deepseek.com"
   )
 
   response = client.messages.create(
-    model="claude-2.0",
+    model="claude-3-7-sonnet-20250219",
     messages=[
         {
             "role": "user",
@@ -110,6 +113,23 @@ def LabelText(text='''
      print(response.content[0].text)
   
   return response.content[0].text
+  '''
+
+  client = OpenAI(api_key=os.getenv('DEEPSEEK_KEY'), base_url="https://api.deepseek.com")
+
+  response = client.chat.completions.create(
+      model="deepseek-chat",
+      messages=[
+          {"role": "system", "content": "You are a helpful assistant"},
+          {"role": "user", "content": prompt+text},
+      ],
+      stream=False
+  )
+
+  if DEBUG:
+    response.choices[0].message.content
+
+  return response.choices[0].message.content
 
 def split_text(file_path, max_chunk_size=3000):
   text = read_file(file_path)
